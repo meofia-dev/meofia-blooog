@@ -36,7 +36,7 @@ const Bio = () => {
 
   return (
     <div className="bio">
-      <StaticImage
+      {/* <StaticImage
         className="bio-avatar"
         layout="fixed"
         formats={["AUTO", "WEBP", "AVIF"]}
@@ -45,7 +45,7 @@ const Bio = () => {
         height={50}
         quality={95}
         alt="Profile picture"
-      />
+      /> */}
       {author?.name && (
         <p>
           {/* Written by <strong>{author.name}</strong> {author?.summary || null} */}
@@ -53,7 +53,7 @@ const Bio = () => {
 
           
           <a href={`https://twitter.com/${social?.twitter || ``}`}>
-            <Twitter style={{ color:"green" }}>
+            <Twitter style={{ color:"#1da1f2" }}>
             </Twitter>
           </a>
         </p>
