@@ -2,11 +2,11 @@ module.exports = {
   siteMetadata: {
     title: `MeOFiA Blooog`,
     author: {
-      name: `BIOの名前部分`,
-      summary: `BIOの概要部分`,
+      name: `meofia`,
+      summary: `blog`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `meofia's blog.`,
+    siteUrl: `https://meofiablooog.gatsbyjs.io/`,
     social: {
       twitter: `MeOFiA1`,
     },
