@@ -2,6 +2,7 @@
 title: サッポロHDの優待が来た！
 date: "2021-05-22"
 description: "優待"
+thumbnail: "image1.jpg"
 ---
 
 ![image1](./image1.jpg)

@@ -1,10 +1,12 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import { Button } from '@material-ui/core';
+import { Button, Grid, Paper } from '@material-ui/core';
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image"
+
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -32,6 +34,10 @@ const BlogIndex = ({ data, location }) => {
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
+          var image = getImage(data.defalt_image)
+          if (post.frontmatter.thumbnail != null) {
+            image = getImage(post.frontmatter.thumbnail)
+          }
 
           return (
             <li key={post.fields.slug}>
@@ -40,52 +46,61 @@ const BlogIndex = ({ data, location }) => {
                 itemScope
                 itemType="http://schema.org/Article"
               >
-                <header>
-                  <h2>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
+                <Grid container spacing={3}>
+                  <Grid item xs={4}>
+                    <GatsbyImage image={image} alt="" />
+                  </Grid>
+                  <Grid item xs={8}>
+                    <h2>
+                      <Link to={post.fields.slug} itemProp="url">
+                        <span itemProp="headline">{title}</span>
+                      </Link>
+                    </h2>
+                    <small>{post.frontmatter.date}</small>
+                    {/* <Tag tags={tags} /> */}
+                  </Grid>
+                </Grid>
               </article>
+
             </li>
           )
         })}
       </ol>
-    </Layout>
+    </Layout >
   )
 }
 
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
+query {
+  site {
+    siteMetadata {
+      title
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      nodes {
-        excerpt
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          title
-          description
+  }
+  defalt_image: file(absolutePath: { regex: "/defalt.png/" }) {
+    childImageSharp {
+      gatsbyImageData(width: 200)
+    }
+  }
+  allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    nodes {
+      excerpt
+      fields {
+        slug
+      }
+      frontmatter {
+        date(formatString: "YYYY/MM/DD")
+        title
+        description
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(width: 200)
+          }
         }
       }
     }
   }
+}
 `
